@@ -3273,11 +3273,11 @@ function Library:CreateWindow(...)
         end;
 
         function Tab:AddLeftGroupbox(Name)
-            return Tab:AddGroupbox({ Side = 1; Name = Name; });
+            return Tab:AddGroupbox({ Name = Name, Side = 1; });
         end;
 
         function Tab:AddRightGroupbox(Name)
-            return Tab:AddGroupbox({ Side = 2; Name = Name; });
+            return Tab:AddGroupbox({ Name = Name, Side = 2; });
         end;
 
         function Tab:AddTabbox(Info)
