@@ -1333,51 +1333,7 @@ do
     end;
 end;
 
-local BaseTab = {};
-BaseTab.__index = BaseTab;
-
--- Ensure the Tab base has essential methods for graceful fallbacks
-function BaseTab:AddGroupbox(...)
-    -- This is a failsafe implementation
-    local args = {...}
-    local Info = args[1]
-    
-    if type(Info) == "table" then
-        return self:AddGroupbox(Info)
-    else
-        return self:AddGroupbox({ Name = tostring(Info) or "Unnamed", Side = 1 })
-    end
-end
-
-function BaseTab:AddLeftGroupbox(Name)
-    return self:AddGroupbox({ Name = Name or "Unnamed", Side = 1 });
-end;
-
-function BaseTab:AddRightGroupbox(Name)
-    return self:AddGroupbox({ Name = Name or "Unnamed", Side = 2 });
-end;
-
-function BaseTab:AddTabbox(Info)
-    if type(Info) ~= "table" then
-        Info = { Name = tostring(Info) or "Unnamed", Side = 1 }
-    end
-    
-    Info.Name = Info.Name or "Unnamed"
-    Info.Side = Info.Side or 1
-    
-    -- Add implementation here if needed
-end
-
-function BaseTab:AddLeftTabbox(Name)
-    return self:AddTabbox({ Name = Name or "Unnamed", Side = 1 });
-end;
-
-function BaseTab:AddRightTabbox(Name)
-    return self:AddTabbox({ Name = Name or "Unnamed", Side = 2 });
-end;
-
 local BaseGroupbox = {};
-BaseGroupbox.__index = BaseGroupbox;
 
 do
     local Funcs = {};
@@ -3227,15 +3183,6 @@ function Library:CreateWindow(...)
         end;
 
         function Tab:AddGroupbox(Info)
-            -- Handle Info parameter being nil or invalid
-            if type(Info) ~= "table" then
-                Info = { Name = tostring(Info) or "Unnamed", Side = 1 }
-            end
-            
-            -- Ensure we have a Name and Side value
-            Info.Name = Info.Name or "Unnamed"
-            Info.Side = Info.Side or 1
-
             local Groupbox = {};
 
             local BoxOuter = Library:Create('Frame', {
@@ -3334,15 +3281,6 @@ function Library:CreateWindow(...)
         end;
 
         function Tab:AddTabbox(Info)
-            -- Handle Info parameter being nil or invalid
-            if type(Info) ~= "table" then
-                Info = { Name = tostring(Info) or "Unnamed", Side = 1 }
-            end
-            
-            -- Ensure we have a Name and Side value
-            Info.Name = Info.Name or "Unnamed"
-            Info.Side = Info.Side or 1
-            
             local Tabbox = {
                 Tabs = {};
             };
