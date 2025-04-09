@@ -230,7 +230,18 @@ local ThemeManager = {} do
 
 	function ThemeManager:CreateGroupBox(tab)
 		assert(self.Library, 'Must set ThemeManager.Library first!')
-		return tab:AddLeftGroupbox('Themes')
+		local groupbox
+		local success, result = pcall(function()
+			return tab:AddLeftGroupbox('Themes')
+		end)
+
+		if not success then
+			groupbox = tab:AddGroupbox({ Name = "Themes", Side = 1 })
+		else
+			groupbox = result
+		end
+		
+		return groupbox
 	end
 
 	function ThemeManager:ApplyToTab(tab)
